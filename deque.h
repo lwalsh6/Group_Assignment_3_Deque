@@ -3,16 +3,36 @@
 
 class deque{
  private:
-  //No idea :P
+  int **blockmap;
+  // number of elements in each block
+  int block_size;
+  // index of first used element in first used block in blockmap
+  int first_element;
+  // index of first used block in blockmap
+  int first_block;
+  // number of elements
+  int size;
+  // total number of blocks in blockmap, both used and unused
+  int rowCount;
+
  public:
   deque();
   ~deque();
-  void push_front();
-  void push_back();
+  void push_front(int element);
+  void pop_front();
+  void push_back(int element);
+  void pop_back();
   int front();
   int back();
   bool empty();
-  int size();
+  int getSize();
+  int& operator[](int index);
 };
 
 #endif //DEQUE_H
+
+// find row
+// first_block + floor((first_element + index) / block_size)
+
+// find column
+// (index + first_element) % block_size
