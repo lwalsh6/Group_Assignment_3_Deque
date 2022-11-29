@@ -30,9 +30,3 @@ class deque{
 };
 
 #endif //DEQUE_H
-
-// find row
-// first_block + floor((first_element + index) / block_size)
-
-// find column
-// (index + first_element) % block_size
