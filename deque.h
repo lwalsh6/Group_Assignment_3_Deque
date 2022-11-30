@@ -1,3 +1,12 @@
+/**
+ * @file deque.h
+ * @author Logan Walsh/Zachary Rose
+ * @date 2022-11-29
+ * @brief Deque Header
+ * 
+ * Contains the function prototypes for the deque 
+ */
+
 #ifndef DEQUE_H
 #define DEQUE_H
 
