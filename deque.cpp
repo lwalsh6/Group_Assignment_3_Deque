@@ -1,3 +1,13 @@
+/**
+ * @file deque.cpp
+ * @author Logan Walsh/Zachary Rose
+ * @date 2022-11-29
+ * @brief Deque Functions
+ * 
+ * contains the functions for the deque class
+ */
+
+
 #include <iostream>
 #include "deque.h"
 
