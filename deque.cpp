@@ -8,16 +8,22 @@ deque::deque(){
   first_element = 40;
   first_block = 3;
   size = 0;
-  rowCount = 10;
+  rowCount = 5;
+  
   blockmap = new int*[rowCount];
   // allocate first block only
   blockmap[first_block] = new int[block_size];
+  first_allocated = first_block;
+  last_allocated = first_block;
 }
 
 deque::~deque(){
-  // final row in use that needs to be deallocated
-  int final_used_row;
-  // FIX THIS memory leak for now
+  // deallocate rows between first_allocated and last_allocated
+  for (int i = first_allocated; i <= last_allocated; i++){
+    delete[] blockmap[i];
+    cout << "deleting block: " << i << endl;
+  }
+
 }
 
 void deque::push_front(int element){
@@ -32,8 +38,8 @@ void deque::push_front(int element){
   }  
   // if a new block is needed
   else{
-    // if there is still an unused block in the blockmap
-    if (row > 0){
+    // if there is still an unused and unallocated block in the blockmap
+    if (row > 0 && first_allocated == row){
       blockmap[row - 1] = new int[block_size];
 
       row--;
@@ -42,8 +48,20 @@ void deque::push_front(int element){
       blockmap[row][col] = element;
       
       first_block--;
+      first_allocated = first_block;
       size++;
-      first_element = block_size - 1;
+      first_element = col;
+    }
+    // if there is an unused but previously allocated block in the blockmap
+    else if (row > 0 && first_allocated < row){
+      row--;
+      col = block_size - 1;
+
+      blockmap[row][col] = element;
+
+      first_block--;
+      size++;
+      first_element = col;
     }
     // if there is no more room in the blockmap, add another row
     else{
@@ -51,9 +69,10 @@ void deque::push_front(int element){
       // allocate new row
       newerBlockMap[0] = new int[block_size];
       first_block = 0;
+      first_allocated = 0;
       col = block_size - 1;
 	
-      // grab all block pointers from previous map
+      // grab all block pointers from previous map, from i + 1 to the end
       for (int i = 0; i < rowCount; i++){
        	newerBlockMap[i + 1] = blockmap[i];
       }
@@ -63,19 +82,24 @@ void deque::push_front(int element){
       
       rowCount++;
       blockmap = newerBlockMap;
-      // don't need a delete here, right?
 
       // row set to new allocated block
       row = 0;
       blockmap[row][col] = element;
       size++;
-      first_element = block_size - 1;
+      first_element = col;
+
+      // last allocated block has moved up one relative to beginning
+      last_allocated++;
     }
   }
 }
 
 void deque::pop_front(){
-  // potential problem with still having a valid block?
+  // if empty, don't worry about valid data and simply return
+  if (size == 0)
+    return;
+  
   size--;
   first_element++;
   
@@ -104,22 +128,31 @@ void deque::push_back(int element){
   }  
   // if a new block is needed
   else{
-    // if there is still an unused block in the blockmap
-    if (row < rowCount - 1){
+    // if there is still an unused and unallocated block in the blockmap
+    if (row < rowCount - 1 && row == last_allocated){
       blockmap[row + 1] = new int[block_size];
 
       row++;
       col = 0;
-
-      blockmap[row][col] = element;
+      last_allocated = row;
       
+      blockmap[row][col] = element;
+      size++;
+    }
+    // if there is an unused but previously allocated block in the blockmap
+    else if (row < rowCount - 1 && row < last_allocated){
+      row++;
+      col = 0;
+      
+      blockmap[row][col] = element;
       size++;
     }
     // if there is no more room in the blockmap, add another row
     else{
       int **newerBlockMap = new int*[rowCount + 1];
-      // allocate new row at end 
+      // allocate new row at the last block in the blockmap
       newerBlockMap[rowCount] = new int[block_size];
+      last_allocated = rowCount;
       
       // grab all block pointers from previous map
       for (int i = 0; i < rowCount; i++){
@@ -128,8 +161,8 @@ void deque::push_back(int element){
       
       rowCount++;
       blockmap = newerBlockMap;
-      // don't need a delete here, right?
 
+      // add new element in first position of newest block
       row++;
       col = 0;
       blockmap[row][col] = element;
@@ -138,7 +171,11 @@ void deque::push_back(int element){
   }
 }
 void deque::pop_back(){
-
+  // if empty, don't worry about valid data and simply return
+  if (size == 0)
+    return;
+  
+  size--;
 }
 
 int deque::front(){
@@ -158,9 +195,15 @@ int deque::getSize(){
 }
 
 int& deque::operator[](int index){
-  // int division
+  // row and column of index
   int row = first_block + (first_element + index) / block_size;
   int col = (index + first_element) % block_size;
+  
+  // invalid index, return an index from the first used block
+  if (index >= size){
+    return blockmap[first_block][col];
+  }
+
   
   return blockmap[row][col];
 }

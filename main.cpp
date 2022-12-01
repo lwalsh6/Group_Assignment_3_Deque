@@ -6,14 +6,25 @@ using namespace std;
 
 int main() {
   deque test;
-  for (int i = 0; i < 10000; i++){
+  for (int i = 0; i < 100; i++){
     test.push_back(i);
   }
 
-  for (int i = 0; i < 10000; i++){
-    cout << test[i] << ' ';
+  // for (int i = 0; i < 10000; i++){
+  //   cout << test[i] << ' ';
+  // }
+  for (int i = 0; i < 10; i++){
+    cout << test.back() << " ";
+    test.pop_back();
   }
- 
+  for (int i = 0; i < 20000; i++){
+    test.push_front(i);
+  }
+  cout << endl;
+  
+  for (int i = 0; i < 20000; i+= 1000){
+  cout << test[i] << " ";
+}
   cout << endl;
   return 0;
 }

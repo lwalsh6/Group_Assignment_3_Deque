@@ -10,6 +10,10 @@ class deque{
   int first_element;
   // index of first used block in blockmap
   int first_block;
+  // index of first allocated block, used to avoid the need to delete after a pop
+  int first_allocated;
+  // index of last allocated block, used to avoid the need to delete after a pop
+  int last_allocated;
   // number of elements
   int size;
   // total number of blocks in blockmap, both used and unused
