@@ -31,7 +31,6 @@ deque::~deque(){
   // deallocate rows between first_allocated and last_allocated
   for (int i = first_allocated; i <= last_allocated; i++){
     delete[] blockmap[i];
-    cout << "deleting block: " << i << endl;
   }
 
 }
