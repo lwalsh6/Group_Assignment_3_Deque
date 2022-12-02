@@ -60,7 +60,7 @@ class deque{
  * pushes an element to the front end of the queue
  *
  * @param int element the element being pushed
- * @pre 
+ * @pre called in main
  * @return void returns nothing
  * @post element has been pushed to the front
  * 
@@ -70,7 +70,7 @@ class deque{
 /**
  * pops an element at the front of the queue
  *
- * @pre 
+ * @pre called in main
  * @return void returns nothing
  * @post front element has been popped
  * 
@@ -81,7 +81,7 @@ class deque{
  * pushes an element to the back of the queue
  *
  * @param int element the element being pushed
- * @pre 
+ * @pre called in main
  * @return void returns nothing
  * @post the element has been pushed to the back of the queue
  * 
@@ -91,7 +91,7 @@ class deque{
 /**
  * pops the element in the back of the queue
  *
- * @pre 
+ * @pre called in main
  * @return void returns nothing
  * @post the back element has been popped
  * 
@@ -101,7 +101,7 @@ class deque{
 /**
  * returns the element at the front of the queue
  *
- * @pre 
+ * @pre called in main
  * @return int returns an integer
  * @post the front element can be used when called
  * 
