@@ -12,7 +12,7 @@
 
 
 /**
- * Class for the Double Ended Queue
+ * a simple double ended queue that allows for pushing and popping from both sides, as well as indexed access to internal array elements.
  *
  * @class deque{ deque.h "GHW03/deque.h"
  * @brief DEQUE
@@ -39,7 +39,7 @@ class deque{
  public:
 
 /**
- * basic constructor for the program
+ * default constructor, initializes blocksize to 1024 and allocates only the starting block
  *
  * @pre 
  * @post private members given default values, first block is allocated
@@ -48,7 +48,7 @@ class deque{
   deque();
 
 /**
- * basic destructor for the program
+ * deallocates any allocated blocks
  *
  * @post dynamic memory has been deallocated
  * 
@@ -88,7 +88,7 @@ class deque{
   void push_back(int element);
 
 /**
- * pops the element in the back of the queue
+ * pops the element in the back of the deque
  *
  * @pre 
  * @return void 
@@ -141,7 +141,7 @@ class deque{
  *
  * @param int index the requested index of an element
  * @pre index should be less than number of elements in deque (size)
- * @return int& reference to element at index
+ * @return int& reference to element at index in deque
  * @post 
  * 
  */
