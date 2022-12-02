@@ -85,10 +85,7 @@ void deque::push_front(int element){
       for (int i = 0; i < rowCount; i++){
        	newerBlockMap[i + 1] = blockmap[i];
       }
-      
-      // couldn't get this pointer nonsense to work, had to do less efficient loop above
-      // newerBlockMap[1] = blockmap[0];
-      
+            
       rowCount++;
       blockmap = newerBlockMap;
 
