@@ -42,7 +42,7 @@ class deque{
  * basic constructor for the program
  *
  * @pre 
- * @post Any private variables are initialized
+ * @post private members given default values, first block is allocated
  * 
  */
   deque();
@@ -50,40 +50,39 @@ class deque{
 /**
  * basic destructor for the program
  *
- * @pre used once the program is finished
- * @post dimensions of the deque have been deleted
+ * @post dynamic memory has been deallocated
  * 
  */
   ~deque();
 
 /**
- * pushes an element to the front end of the queue
+ * pushes an element to the front end of the deque
  *
- * @param int element the element being pushed
+ * @param int element the element to add
  * @pre 
- * @return void returns nothing
- * @post element has been pushed to the front
+ * @return void
+ * @post element has been pushed to the front, and size increased by 1
  * 
  */
   void push_front(int element);
 
 /**
- * pops an element at the front of the queue
+ * pops the element at the front of the deque
  *
  * @pre 
- * @return void returns nothing
- * @post front element has been popped
+ * @return void 
+ * @post front element has been popped, and size decreased by 1
  * 
  */
   void pop_front();
 
 /**
- * pushes an element to the back of the queue
+ * pushes an element to the back of the deque
  *
- * @param int element the element being pushed
+ * @param int element the element to add
  * @pre 
- * @return void returns nothing
- * @post the element has been pushed to the back of the queue
+ * @return void 
+ * @post the element has been added to the back of the deque, and size increased by 1
  * 
  */
   void push_back(int element);
@@ -92,47 +91,47 @@ class deque{
  * pops the element in the back of the queue
  *
  * @pre 
- * @return void returns nothing
- * @post the back element has been popped
+ * @return void 
+ * @post the back element has been popped, and size decreased by 1
  * 
  */
   void pop_back();
 
 /**
- * returns the element at the front of the queue
+ * returns a copy of the element at the front of the deque
  *
  * @pre 
- * @return int returns an integer
- * @post the front element can be used when called
+ * @return int a copy of the first element in the deque
+ * @post 
  * 
  */
   int front();
 /**
- * returns the element at the back of the queue
+ * returns a copy of the element at the back of the deque
  *
  * @pre
- * @return int returns an integer
- * @post the back element can be used when called
+ * @return int a copy of the last element in the deque
+ * @post 
  *
  */
   int back();
 
 /**
- * returns a boolean that tells that the queue is empty
+ * checks if the deque is empty
  *
  * @pre 
- * @return bool returns a boolean
- * @post can be used in places that will check if the queue is empty
+ * @return bool returns true if the deque contains no elements
+ * @post 
  * 
  */
   bool empty();
 
 /**
- * returns the size of the queue
+ * returns the size of the deque
  *
  * @pre 
- * @return int returns an integer
- * @post the size can be used when called
+ * @return int number of elements in deque
+ * @post 
  * 
  */
   int getSize();
@@ -140,9 +139,9 @@ class deque{
 /**
  * operator overload for []
  *
- * @param int index the element in the program
- * @pre 
- * @return int& 
+ * @param int index the requested index of an element
+ * @pre index should be less than number of elements in deque (size)
+ * @return int& reference to element at index
  * @post 
  * 
  */
